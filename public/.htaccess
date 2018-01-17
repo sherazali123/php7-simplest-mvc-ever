@@ -1,0 +1,11 @@
+# Remove the question mark from the request but maintain the query string
+# Enable mod_rewrite from the http.conf
+# The http.conf needs to have "AllowOverride all" in document root
+
+RewriteEngine On
+
+# Send would-be 404 requests to Craft
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !^/(favicon\.ico|apple-touch-icon.*\.png)$ [NC]
+RewriteRule (.+) index.php?$1 [QSA,L]
